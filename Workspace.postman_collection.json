@@ -15,7 +15,15 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});"
+							"});",
+							"",
+							"// JavaScript",
+							"var jsonData = JSON.parse(responseBody);",
+							"console.log(jsonData);",
+							"",
+							"// Save Token in a new enviroment variable",
+							"postman.setEnvironmentVariable(\"token\", jsonData.token)",
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -101,6 +109,129 @@
 						"public",
 						"users",
 						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "member-of",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Add verification for Status code",
+							"pm.test(\"Status code is 200 for <member-of> request\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var responseData = pm.response.json();",
+							"console.log(responseData);",
+							"",
+							"pm.test(\"Verify name equals to <Select_insurance_plan>\", function(){",
+							"    pm.expect(responseData[1].name).to.equal(\"Select_insurance_plan\")",
+							"})",
+							"",
+							"pm.test(\"Verify id equals to <gEd1TYQBXL0WroF_Nwju>\", function(){",
+							"    pm.expect(responseData[1].id).to.equal(\"gEd1TYQBXL0WroF_Nwju\")",
+							"})",
+							"",
+							"",
+							"",
+							"pm.test(\"Verify userId equals to <zneXbYAB2_geKK0bIL6d>\", function(){",
+							"    pm.expect(responseData[1].userId).to.equal(\"zneXbYAB2_geKK0bIL6d\")",
+							"})",
+							"",
+							"pm.test(\"Verify description equals to <Car insurance\\nHouse insurance>\", function(){",
+							"    pm.expect(responseData[1].description).to.equal(\"Car insurance\\nHouse insurance\")",
+							"})",
+							"",
+							"//TASK",
+							"// Add tests to validate id, validate UserId, description"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "api.octoperf.com"
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "accept-language",
+						"value": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7"
+					},
+					{
+						"key": "authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJvY3RvcGVyZiIsImlkIjoiem5lWGJZQUIyX2dlS0swYklMNmQiLCJleHAiOjE2Njc4MzE1NTQsImlhdCI6MTY2Nzc0NTE1NCwiaGFzaCI6IjdhODQxYTViNmQzNTZiMzhjZDhkNWZmOThiZWMxMGE0In0.Sx74NW6uXE4mr-2x4LavIg0PNXbdT2fT2_LFWgyj76Y",
+						"disabled": true
+					},
+					{
+						"key": "cookie",
+						"value": "_ga=GA1.2.1319655255.1667660583; _gid=GA1.2.2103936966.1667660583; __stripe_mid=5f2cf4d4-6c10-4af8-b793-53bb393e660f29349b; slaask-token-5a5eed8e193aa4456766852b0d3bdd64=2bgh11f9lrtvntezdl62iisyk8znt4oyoycjyoc7kluh; __stripe_sid=e3411b33-fa7e-4f37-92fa-97868fa992034f14db"
+					},
+					{
+						"key": "referer",
+						"value": "https://api.octoperf.com/app/"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"107\", \"Chromium\";v=\"107\", \"Not=A?Brand\";v=\"24\""
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-origin"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36"
+					}
+				],
+				"url": {
+					"raw": "https://api.octoperf.com/workspaces/member-of",
+					"protocol": "https",
+					"host": [
+						"api",
+						"octoperf",
+						"com"
+					],
+					"path": [
+						"workspaces",
+						"member-of"
 					]
 				}
 			},
